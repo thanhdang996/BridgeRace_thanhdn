@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
+  isWinPos: 0
 --- !u!1 &3742167519695316592
 GameObject:
   m_ObjectHideFlags: 0
