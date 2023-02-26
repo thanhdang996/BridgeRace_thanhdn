@@ -7,13 +7,15 @@ public class Bot : CharacterProps
 {
     public enum StateBot
     {
-        Idle, SeekingBlock, BuildBridge, Win
+        Idle, SeekingBlock, BuildBridge, Winning
     }
     public StateBot stateBot;
 
     private NavMeshAgent navMeshAgent;
     [SerializeField] private Vector3 currentTargetPoint;
     [SerializeField] private int needBlockToBuild = 5;
+    [SerializeField] private bool hasTarget;
+    public bool HasTarget { get => hasTarget; set => hasTarget = value; }
 
 
     private void Awake()
@@ -33,7 +35,7 @@ public class Bot : CharacterProps
         {
             if (isWin)
             {
-                stateBot = StateBot.Win;
+                stateBot = StateBot.Winning;
                 ChangeAnim("Win");
                 return;
             }
@@ -57,14 +59,14 @@ public class Bot : CharacterProps
             {
                 stateBot = StateBot.SeekingBlock;
                 needBlockToBuild = Random.Range(4, 15);
-                hasTarget = false;
+                HasTarget = false;
             }
 
             if (stateBot == StateBot.SeekingBlock)
             {
-                if (!hasTarget)
+                if (!HasTarget)
                 {
-                    if (numberBlockOwner < needBlockToBuild)
+                    if (NumberBlockOwner < needBlockToBuild)
                     {
                         FindBlock();
                     }
@@ -77,7 +79,7 @@ public class Bot : CharacterProps
             }
             if (stateBot == StateBot.BuildBridge)
             {
-                if (numberBlockOwner == 0)
+                if (NumberBlockOwner == 0)
                 {
                     stateBot = StateBot.Idle;
                 }
@@ -99,7 +101,7 @@ public class Bot : CharacterProps
         Vector3 blockPos = listToCollectBlock[randomBlockToCollect];
         currentTargetPoint = blockPos;
         MoveToTarget(currentTargetPoint);
-        hasTarget = true;
+        HasTarget = true;
     }
     private void MoveToTarget(Vector3 target)
     {

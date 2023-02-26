@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
         LoadGameData();
     }
 
+
     public void LoadGameData()
     {
         Level = PlayerPrefs.GetInt("level", 1);

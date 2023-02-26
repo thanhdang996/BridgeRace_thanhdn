@@ -20,4 +20,26 @@ public class Block : MonoBehaviour
         transform.localPosition = oriPos;
         transform.rotation = Quaternion.identity;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out CharacterProps character))
+        {
+            if(IsSameColor(character.Color))
+            {
+                character.ListToCollectBlock.Remove(transform.position);
+                character.NumberBlockOwner++;
+                transform.SetParent(character.BackPoint);
+                transform.localRotation = character.BackPoint.rotation;
+                transform.localPosition = new Vector3(0, character.NumberBlockOwner * 0.3f, 0);
+
+                if(character is Bot)
+                {
+                    Bot bot = (Bot)character;
+                    bot.HasTarget= false;
+                    //character.GetComponent<Bot>().HasTarget= true;
+                }
+            }
+        }
+    }
 }

@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class CharacterProps : MonoBehaviour
 {
+    private Vector3 oriPos;
     protected BlockSpawner blockSpawner;
-    
-    [SerializeField] protected Transform backPoint;
-    [SerializeField] protected int atFloor = 1;
-    [SerializeField] protected int numberBlockOwner;
-    [SerializeField] protected List<Vector3> listToCollectBlock = new List<Vector3>();
 
-    [SerializeField] private ColorType color;
-    [SerializeField] private int indexPrefab;
+    [SerializeField] protected Transform backPoint;
+    public Transform BackPoint => backPoint;
+    [SerializeField] protected int atFloor = 1;
+    public int AtFloor => atFloor;
+    [SerializeField] private int numberBlockOwner;
+    public int NumberBlockOwner { get => numberBlockOwner; set => numberBlockOwner = value; }
+    [SerializeField] protected List<Vector3> listToCollectBlock = new List<Vector3>();
+    public List<Vector3> ListToCollectBlock => listToCollectBlock;
+    [SerializeField] protected ColorType color;
+    public ColorType Color => color;
+
+
+    [SerializeField] protected int indexPrefab;
+
     [SerializeField] protected Transform currentTargetBridge;
     [SerializeField] protected bool reachEndPoint;
-    [SerializeField] protected bool hasTarget;
-    [SerializeField] protected bool isWin;
+    //[SerializeField] protected bool hasTarget;
 
+    [SerializeField] protected bool isWin;
     // if human
     [SerializeField] protected bool isHuman;
-    [SerializeField] PlayerMovement player;
+    //[SerializeField] PlayerMovement player;
 
     // anim
     private string currentAnimName;
     [SerializeField] private Animator anim;
-
-    private Vector3 oriPos;
 
 
     private void Start()
@@ -36,25 +42,25 @@ public class CharacterProps : MonoBehaviour
         OnInit();
     }
 
-    private void Update()
-    {
-        if (GameManager.Instance.IsStartGame || GameManager.Instance.Lose)
-        {
-            if (isWin)
-            {
-                ChangeAnim("Win");
-            }
+    //private void Update()
+    //{
+    //    if (GameManager.Instance.IsStartGame || GameManager.Instance.Lose)
+    //    {
+    //        if (isWin)
+    //        {
+    //            ChangeAnim("Win");
+    //        }
 
-            else if (player.IsNotMoving())
-            {
-                ChangeAnim("Idle");
-            }
-            else if (!player.IsNotMoving())
-            {
-                ChangeAnim("Run");
-            }
-        }
-    }
+    //        else if (player.IsNotMoving())
+    //        {
+    //            ChangeAnim("Idle");
+    //        }
+    //        else if (!player.IsNotMoving())
+    //        {
+    //            ChangeAnim("Run");
+    //        }
+    //    }
+    //}
 
     public void OriPos()
     {
@@ -64,32 +70,31 @@ public class CharacterProps : MonoBehaviour
     private void ResetFLoor()
     {
 
-        numberBlockOwner = 0;
-        Block[] blocks = backPoint.GetComponentsInChildren<Block>();
-        foreach (Block item in blocks)
-        {
-            Destroy(item.gameObject);
-        }
-        atFloor = 1;
-        OnInit();
-        transform.position = oriPos;
-        isWin = false;
-        if (player != null)
-        {
-            player.enabled = true;
-        }
-        GameManager.Instance.HasOneWinning = false;
+        //NumberBlockOwner = 0;
+        //Block[] blocks = backPoint.GetComponentsInChildren<Block>();
+        //foreach (Block item in blocks)
+        //{
+        //    Destroy(item.gameObject);
+        //}
+        //atFloor = 1;
+        //OnInit();
+        //transform.position = oriPos;
+        //isWin = false;
+        //if (player != null)
+        //{
+        //    player.enabled = true;
+        //}
+        //GameManager.Instance.HasOneWinning = false;
     }
 
     private void OnInit()
     {
         listToCollectBlock.Clear();
         //blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawner(atFloor).transform.GetChild(atFloor - 1).GetChild(1).GetComponent<BlockSpawner>();
-        blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawnerInFloor(atFloor - 1);
-
+        blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawnerInFloor(AtFloor - 1);
         //Transform allBridge = map.transform.GetChild(atFloor - 1).GetChild(2);
 
-        Transform allBridge = LevelManager.Instance.CurrentLevel.GetCurrentBridgeInFloor(atFloor - 1);
+        Transform allBridge = LevelManager.Instance.CurrentLevel.GetCurrentBridgeInFloor(AtFloor - 1);
 
         int numberBridge = allBridge.childCount;
         currentTargetBridge = allBridge.GetChild(Random.Range(0, numberBridge)).Find("End Point");
@@ -99,99 +104,107 @@ public class CharacterProps : MonoBehaviour
         listToCollectBlock = blockSpawner.DataBlockPrefab[indexPrefab].listBlockPos;
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    // va cham block
+    //    if (other.TryGetComponent(out Block block))
+    //    {
+    //        if (block.IsSameColor(color))
+    //        {
+    //            listToCollectBlock.Remove(block.transform.position);
+    //            NumberBlockOwner++;
+    //            block.transform.SetParent(backPoint);
+    //            block.transform.localRotation = backPoint.transform.localRotation;
+    //            block.transform.localPosition = new Vector3(0, NumberBlockOwner * 0.3f, 0);
+    //            hasTarget = false;
+    //        }
+    //        return;
+    //    }
+
+    //    // va cham step
+    //    else if (other.TryGetComponent(out Step step))
+    //    {
+    //        if (NumberBlockOwner <= 0 && !step.IsSameColor(color))
+    //        {
+    //            if (isHuman && player.DirectionZ > 0)
+    //            {
+    //                step.TurnOnWall();
+    //            }
+    //            else if (isHuman && player.DirectionZ <= 0)
+    //            {
+    //                step.TurnOffWall();
+    //            }
+    //            return;
+    //        }
+    //        if (step.IsSameColor(ColorType.None))
+    //        {
+    //            step.ChangeColor(color);
+    //            if (isHuman && player.DirectionZ > 0)
+    //            {
+    //                step.TurnOffWall();
+    //            }
+    //            RemoveBlockAndSetBackToGround();
+    //            return;
+    //        }
+
+    //        if (step.IsSameColor(color))
+    //        {
+    //            if (isHuman && player.DirectionZ > 0)
+    //            {
+    //                step.TurnOffWall();
+    //            }
+    //            return;
+    //        }
+    //        if (!step.IsSameColor(color))
+    //        {
+    //            step.ChangeColor(color);
+    //            if (isHuman && player.DirectionZ > 0)
+    //            {
+    //                step.TurnOffWall();
+    //            }
+    //            RemoveBlockAndSetBackToGround();
+    //            return;
+    //        }
+
+    //    }
+
+    //    // va cham end point
+    //    else if (other.CompareTag("EndPoint") && other.GetComponent<EndPoint>().level - 1 == atFloor)
+    //    {
+    //        if (other.GetComponent<EndPoint>().isWinPos)
+    //        {
+    //            isWin = true;
+    //            GameManager.Instance.HasOneWinning = true;
+    //            if (!isHuman)
+    //            {
+    //                GameManager.Instance.Lose = true;
+    //                UIManager.Instance.ShowPanelLose();
+    //            }
+    //            else
+    //            {
+    //                player.enabled = false;
+    //                UIManager.Instance.ShowPanelWin();
+    //            }
+    //            return;
+    //        }
+    //        reachEndPoint = true;
+    //        atFloor++;
+    //        OnInit();
+    //        blockSpawner.GenerateBlock(indexPrefab, listToCollectBlock);
+    //    }
+    //}
+
+    public void HandleNextFloor()
     {
-        // va cham block
-        if (other.TryGetComponent(out Block block))
-        {
-            if (block.IsSameColor(color))
-            {
-                listToCollectBlock.Remove(block.transform.position);
-                numberBlockOwner++;
-                block.transform.SetParent(backPoint.transform);
-                block.transform.localRotation = backPoint.transform.localRotation;
-                block.transform.localPosition = new Vector3(0, numberBlockOwner * 0.3f, 0);
-                hasTarget = false;
-            }
-            return;
-        }
-
-        // va cham step
-        else if (other.TryGetComponent(out Step step))
-        {
-            if (numberBlockOwner <= 0 && !step.IsSameColor(color))
-            {
-                if (isHuman && player.DirectionZ > 0)
-                {
-                    step.TurnOnWall();
-                }
-                else if (isHuman && player.DirectionZ <= 0)
-                {
-                    step.TurnOffWall();
-                }
-                return;
-            }
-            if (step.IsSameColor(ColorType.None))
-            {
-                step.ChangeColor(color);
-                if (isHuman && player.DirectionZ > 0)
-                {
-                    step.TurnOffWall();
-                }
-                RemoveBlockAndSetBackToGround();
-                return;
-            }
-
-            if (step.IsSameColor(color))
-            {
-                if (isHuman && player.DirectionZ > 0)
-                {
-                    step.TurnOffWall();
-                }
-                return;
-            }
-            if (!step.IsSameColor(color))
-            {
-                step.ChangeColor(color);
-                if (isHuman && player.DirectionZ > 0)
-                {
-                    step.TurnOffWall();
-                }
-                RemoveBlockAndSetBackToGround();
-                return;
-            }
-
-        }
-
-        // va cham end point
-        else if (other.CompareTag("EndPoint") && other.GetComponent<EndPoint>().level - 1 == atFloor)
-        {
-            if (other.GetComponent<EndPoint>().isWinPos)
-            {
-                isWin = true;
-                GameManager.Instance.HasOneWinning = true;
-                if (!isHuman)
-                {
-                    GameManager.Instance.Lose = true;
-                    UIManager.Instance.ShowPanelLose();
-                }
-                else
-                {
-                    player.enabled = false;
-                    UIManager.Instance.ShowPanelWin();
-                }
-                return;
-            }
-            reachEndPoint = true;
-            atFloor++;
-            OnInit();
-            blockSpawner.GenerateBlock(indexPrefab, listToCollectBlock);
-        }
+        reachEndPoint = true;
+        atFloor++;
+        OnInit();
+        blockSpawner.GenerateBlock(indexPrefab, listToCollectBlock);
     }
 
-    private void RemoveBlockAndSetBackToGround()
+    public void RemoveBlockAndSetBackToGround()
     {
-        numberBlockOwner--;
+        NumberBlockOwner--;
         Transform blockRemove = backPoint.GetChild(backPoint.childCount - 1);
         blockRemove.SetParent(blockSpawner.transform);
         blockRemove.GetComponent<Block>().LoadPos();
@@ -205,7 +218,7 @@ public class CharacterProps : MonoBehaviour
             if (!string.IsNullOrEmpty(currentAnimName))
                 anim.ResetTrigger(currentAnimName);
             currentAnimName = animName;
-            anim.SetTrigger(animName);
+            anim.SetTrigger(currentAnimName);
         }
     }
 }

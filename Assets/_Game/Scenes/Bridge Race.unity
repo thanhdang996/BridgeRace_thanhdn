@@ -645,7 +645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e316c476fc3e2a9439d395f3ac81a727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
   backPoint: {fileID: 1434381682}
   atFloor: 1
   numberBlockOwner: 0
@@ -654,14 +653,13 @@ MonoBehaviour:
   indexPrefab: 2
   currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  hasTarget: 0
   isWin: 0
   isHuman: 0
-  player: {fileID: 0}
   anim: {fileID: 1871553984}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
+  hasTarget: 0
 --- !u!195 &226721994
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2242,7 +2240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e316c476fc3e2a9439d395f3ac81a727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
   backPoint: {fileID: 1730587517}
   atFloor: 1
   numberBlockOwner: 0
@@ -2251,14 +2248,13 @@ MonoBehaviour:
   indexPrefab: 3
   currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  hasTarget: 0
   isWin: 0
   isHuman: 0
-  player: {fileID: 0}
   anim: {fileID: 835088470}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
+  hasTarget: 0
 --- !u!195 &1085128256
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2591,7 +2587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e316c476fc3e2a9439d395f3ac81a727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
   backPoint: {fileID: 642736834}
   atFloor: 1
   numberBlockOwner: 0
@@ -2600,14 +2595,13 @@ MonoBehaviour:
   indexPrefab: 1
   currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  hasTarget: 0
   isWin: 0
   isHuman: 0
-  player: {fileID: 0}
   anim: {fileID: 1445176139}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
+  hasTarget: 0
 --- !u!136 &1404835863
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3401,10 +3395,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2053699802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2209a9b5cb9bfd64bad7b399437f028c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c8da779c72fbdc4a90acfcbd7887c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
   backPoint: {fileID: 1200349211}
   atFloor: 1
   numberBlockOwner: 0
@@ -3413,8 +3406,7 @@ MonoBehaviour:
   indexPrefab: 0
   currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  hasTarget: 0
   isWin: 0
   isHuman: 1
-  player: {fileID: 2053699806}
   anim: {fileID: 1616266402}
+  playerMovement: {fileID: 2053699806}

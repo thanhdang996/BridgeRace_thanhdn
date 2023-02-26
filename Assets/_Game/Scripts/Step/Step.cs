@@ -18,14 +18,83 @@ public class Step : MonoBehaviour
         mesh.material = dataColor.GetMat(colorType);
     }
 
-    public void TurnOnWall()
+    private void TurnOnWall()
     {
         wall.enabled = true;
     }
 
-    public void TurnOffWall()
+    private void TurnOffWall()
     {
         wall.enabled = false;
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out CharacterProps character))
+        {
+            if(character is Player)
+            {
+                Player player = (Player)character;
+
+                if (player.NumberBlockOwner <= 0 && !IsSameColor(player.Color))
+                {
+                    if (player.PlayerMovement.DirectionZ > 0)
+                    {
+                        TurnOnWall();
+                    }
+                    else if (player.PlayerMovement.DirectionZ <= 0)
+                    {
+                        TurnOffWall();
+                    }
+                    return;
+                }
+                if (IsSameColor(ColorType.None))
+                {
+                    ChangeColor(player.Color);
+                    if (player.PlayerMovement.DirectionZ > 0)
+                    {
+                        TurnOffWall();
+                    }
+                    player.RemoveBlockAndSetBackToGround();
+                    return;
+                }
+
+                if (IsSameColor(player.Color))
+                {
+                    if (player.PlayerMovement.DirectionZ > 0)
+                    {
+                        TurnOffWall();
+                    }
+                    return;
+                }
+                if (!IsSameColor(player.Color))
+                {
+                    ChangeColor(player.Color);
+                    if (player.PlayerMovement.DirectionZ > 0)
+                    {
+                        TurnOffWall();
+                    }
+                    player.RemoveBlockAndSetBackToGround();
+                    return;
+                }
+            }
+            else if (character is Bot)
+            {
+                Bot bot = (Bot)character;
+                if (IsSameColor(ColorType.None))
+                {
+                    ChangeColor(bot.Color);
+                    bot.RemoveBlockAndSetBackToGround();
+                    return;
+                }
+                if (!IsSameColor(bot.Color))
+                {
+                    ChangeColor(bot.Color);
+                    bot.RemoveBlockAndSetBackToGround();
+                    return;
+                }
+            }
+        }
+    }
 }
