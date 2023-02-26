@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterProps : MonoBehaviour
 {
     protected BlockSpawner blockSpawner;
-    [SerializeField] protected GameObject map;
+    
     [SerializeField] protected Transform backPoint;
     [SerializeField] protected int atFloor = 1;
     [SerializeField] protected int numberBlockOwner;
@@ -14,7 +14,6 @@ public class CharacterProps : MonoBehaviour
     [SerializeField] private ColorType color;
     [SerializeField] private int indexPrefab;
     [SerializeField] protected Transform currentTargetBridge;
-    //[SerializeField] protected Transform winPos;
     [SerializeField] protected bool reachEndPoint;
     [SerializeField] protected bool hasTarget;
     [SerializeField] protected bool isWin;
@@ -33,15 +32,13 @@ public class CharacterProps : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.OnNextLevel += ResetFLoor;
-        map = LevelManager.Instance.CurrentMap;
-
         OriPos();
         OnInit();
     }
 
     private void Update()
     {
-        if (GameManager.Instance.IsStartGame)
+        if (GameManager.Instance.IsStartGame || GameManager.Instance.Lose)
         {
             if (isWin)
             {
@@ -66,7 +63,6 @@ public class CharacterProps : MonoBehaviour
 
     private void ResetFLoor()
     {
-        map = LevelManager.Instance.CurrentMap;
 
         numberBlockOwner = 0;
         Block[] blocks = backPoint.GetComponentsInChildren<Block>();
@@ -88,9 +84,13 @@ public class CharacterProps : MonoBehaviour
     private void OnInit()
     {
         listToCollectBlock.Clear();
-        blockSpawner = map.transform.GetChild(atFloor - 1).GetChild(1).GetComponent<BlockSpawner>();
+        //blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawner(atFloor).transform.GetChild(atFloor - 1).GetChild(1).GetComponent<BlockSpawner>();
+        blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawnerInFloor(atFloor - 1);
 
-        Transform allBridge = map.transform.GetChild(atFloor - 1).GetChild(2);
+        //Transform allBridge = map.transform.GetChild(atFloor - 1).GetChild(2);
+
+        Transform allBridge = LevelManager.Instance.CurrentLevel.GetCurrentBridgeInFloor(atFloor - 1);
+
         int numberBridge = allBridge.childCount;
         currentTargetBridge = allBridge.GetChild(Random.Range(0, numberBridge)).Find("End Point");
 
@@ -177,6 +177,7 @@ public class CharacterProps : MonoBehaviour
                 }
                 else
                 {
+                    player.enabled = false;
                     UIManager.Instance.ShowPanelWin();
                 }
                 return;

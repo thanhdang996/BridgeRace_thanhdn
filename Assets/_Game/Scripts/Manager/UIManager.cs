@@ -39,9 +39,12 @@ public class UIManager : Singleton<UIManager>
     {
         HidePaneWin();
         HidePaneLose();
-        LevelManager.Instance.Level++;
+        ObjectPooling.Instance._dicGameObject.Clear();
+
+        GameManager.Instance.Level++;
+        GameManager.Instance.SaveGameData();
         LevelManager.Instance.RemoveLastMap();
-        LevelManager.Instance.LoadMapAndCreateMap();
+        LevelManager.Instance.LoadMapAtCurrentLevel();
         OnNextLevel?.Invoke();
     }
 

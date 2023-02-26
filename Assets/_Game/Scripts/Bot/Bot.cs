@@ -21,12 +21,6 @@ public class Bot : CharacterProps
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    //protected override void Start()
-    //{   
-    //    base.Start();
-    //    UIManager.Instance.OnNextLevel += ResetBot;
-    //}
-
     private void Update()
     {
         if (GameManager.Instance.HasOneWinning)
@@ -103,7 +97,6 @@ public class Bot : CharacterProps
         if (listToCollectBlock.Count <= 0) return;
         int randomBlockToCollect = Random.Range(0, listToCollectBlock.Count);
         Vector3 blockPos = listToCollectBlock[randomBlockToCollect];
-        //listToCollectBlock.RemoveAt(randomBlockToCollect);
         currentTargetPoint = blockPos;
         MoveToTarget(currentTargetPoint);
         hasTarget = true;

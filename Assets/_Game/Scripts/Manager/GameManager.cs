@@ -4,8 +4,27 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private bool isStartGame;
 
+    private int level = 1;
+    public int Level { get => level; set => level = value; }
+
+    public override void Awake()
+    {
+        base.Awake();
+        LoadGameData();
+    }
+
+    public void LoadGameData()
+    {
+        Level = PlayerPrefs.GetInt("level", 1);
+    }
+
+    public void SaveGameData()
+    {
+        PlayerPrefs.SetInt("level", Level);
+    }
+
+    private bool isStartGame;
     public bool IsStartGame { get => isStartGame; set => isStartGame = value; }
 
 

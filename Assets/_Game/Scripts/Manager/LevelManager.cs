@@ -2,30 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : Singleton<LevelManager>
+public class LevelManager : Singleton<LevelManager> // chi co duy nhat 1 script
 {
-    private int level = 1;
-    public int Level { get => level; set => level = value; }
 
-
-    private GameObject currentMap;
-    public GameObject CurrentMap { get => currentMap; set => currentMap = value; }
-
-
+    private LevelController currentLevel;
+    public LevelController CurrentLevel { get => currentLevel; set => currentLevel = value; }
 
     private void Start()
     {
-        LoadMapAndCreateMap();
+        LoadMapAtCurrentLevel();
     }
 
     public void RemoveLastMap()
     {
-        Destroy(currentMap);
+        Destroy(currentLevel.gameObject);
     }
 
-    public void LoadMapAndCreateMap()
+    public void LoadMapAtCurrentLevel()
     {
-        GameObject go = Resources.Load($"Maps/Map {Level}") as GameObject;
-        CurrentMap = Instantiate(go);
+        GameObject go = Resources.Load($"Levels/Level {GameManager.Instance.Level}") as GameObject;
+        currentLevel = Instantiate(go).GetComponent<LevelController>();
     }
 }
