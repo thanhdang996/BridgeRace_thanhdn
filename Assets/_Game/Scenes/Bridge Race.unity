@@ -651,7 +651,6 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 3
   indexPrefab: 2
-  reachEndPoint: 0
   isCharacterFirstWin: 0
   anim: {fileID: 1871553984}
   stateBot: 0
@@ -2245,7 +2244,6 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 4
   indexPrefab: 3
-  reachEndPoint: 0
   isCharacterFirstWin: 0
   anim: {fileID: 835088470}
   stateBot: 0
@@ -2591,7 +2589,6 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 2
   indexPrefab: 1
-  reachEndPoint: 0
   isCharacterFirstWin: 0
   anim: {fileID: 1445176139}
   stateBot: 0
@@ -3401,7 +3398,6 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 1
   indexPrefab: 0
-  reachEndPoint: 0
   isCharacterFirstWin: 0
   anim: {fileID: 1616266402}
   playerMovement: {fileID: 2053699806}

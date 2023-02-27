@@ -70,21 +70,7 @@ public class Bot : CharacterProps
 
         if (GameManager.Instance.IsStartGame)
         {
-
-            if (navMeshAgent.velocity.sqrMagnitude < 0.1f)
-            {
-                ChangeAnim("Idle");
-            }
-            else
-            {
-                ChangeAnim("Run");
-            }
-
-            if (reachEndPoint)
-            {
-                stateBot = StateBot.Idle;
-                reachEndPoint = false;
-            }
+            HandleUpdateAnim();
 
             if (stateBot == StateBot.Idle)
             {
@@ -118,6 +104,24 @@ public class Bot : CharacterProps
         }
     }
 
+    private void HandleUpdateAnim()
+    {
+        if (navMeshAgent.velocity.sqrMagnitude < 0.1f)
+        {
+            ChangeAnim("Idle");
+        }
+        else
+        {
+            ChangeAnim("Run");
+        }
+    }
+
+    public override void HandleNextFloor()
+    {
+        base.HandleNextFloor();
+        stateBot = StateBot.Idle; // reset ve idle de tim gach tang tiep theo
+    }
+
     public override void HandLeWin()
     {
         base.HandLeWin();
@@ -128,7 +132,7 @@ public class Bot : CharacterProps
     {
         stateBot = StateBot.Idle;
         navMeshAgent.ResetPath();
-        ChangeAnim("Idle");
+        //ChangeAnim("Idle");
 
     }
     private void FindBlock()

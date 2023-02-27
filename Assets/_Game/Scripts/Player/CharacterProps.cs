@@ -30,8 +30,6 @@ public class CharacterProps : MonoBehaviour
 
     [SerializeField] protected int indexPrefab;
 
-    [SerializeField] protected bool reachEndPoint;
-
 
     [SerializeField] private bool isCharacterFirstWin;
     public bool IsCharacterFirstWin => isCharacterFirstWin;
@@ -82,9 +80,8 @@ public class CharacterProps : MonoBehaviour
     }
 
 
-    public void HandleNextFloor()
+    public virtual void HandleNextFloor()
     {
-        reachEndPoint = true;
         atFloor++;
         OnInit();
         blockSpawner.GenerateBlock(indexPrefab, listToCollectBlock);
