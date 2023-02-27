@@ -7,7 +7,7 @@ public class Bot : CharacterProps
 {
     public enum StateBot
     {
-        Idle, SeekingBlock, BuildBridge, Winning
+        Idle, SeekingBlock, BuildBridge, Winning, Lose
     }
     public StateBot stateBot;
 
@@ -17,30 +17,61 @@ public class Bot : CharacterProps
     [SerializeField] private bool hasTarget;
     public bool HasTarget { get => hasTarget; set => hasTarget = value; }
 
+    [SerializeField] private Transform currentTargetBridge;
+
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
+    protected override void OnInit()
+    {
+        base.OnInit();
+
+        // tim currentTargetBridge
+        Transform allBridge = LevelManager.Instance.CurrentLevel.GetCurrentBridgeInFloor(AtFloor - 1);
+        int numberBridge = allBridge.childCount;
+        currentTargetBridge = allBridge.GetChild(Random.Range(0, numberBridge)).Find("End Point");
+    }
+
+    protected override void ResetFLoor()
+    {
+        base.ResetFLoor();
+        ResetBot();
+    }
+
     private void Update()
     {
-        if (GameManager.Instance.HasOneWinning)
+        if (GameManager.Instance.IsWinning)
         {
-            ResetBot();
+            stateBot = StateBot.Lose;
+            ChangeAnim("Dead");
+            navMeshAgent.isStopped = true;
+            return;
+        }
+
+        if (GameManager.Instance.IsLose)
+        {
+            if (IsCharacterFirstWin)
+            {
+                stateBot = StateBot.Winning;
+                ChangeAnim("Win");
+
+            }
+            else
+            {
+                stateBot = StateBot.Idle;
+                ChangeAnim("Idle");
+            }
+            navMeshAgent.isStopped = true;
             return;
         }
 
         if (GameManager.Instance.IsStartGame)
         {
-            if (isWin)
-            {
-                stateBot = StateBot.Winning;
-                ChangeAnim("Win");
-                return;
-            }
 
-            if (navMeshAgent.isStopped)
+            if (navMeshAgent.velocity.sqrMagnitude < 0.1f)
             {
                 ChangeAnim("Idle");
             }
@@ -79,20 +110,26 @@ public class Bot : CharacterProps
             }
             if (stateBot == StateBot.BuildBridge)
             {
-                if (NumberBlockOwner == 0)
+                if (NumberBlockOwner == 0) // dk de dung tim gach tiep
                 {
                     stateBot = StateBot.Idle;
                 }
             }
         }
+    }
 
-
+    public override void HandLeWin()
+    {
+        base.HandLeWin();
+        navMeshAgent.ResetPath();
     }
 
     private void ResetBot()
     {
         stateBot = StateBot.Idle;
         navMeshAgent.ResetPath();
+        ChangeAnim("Idle");
+
     }
     private void FindBlock()
     {

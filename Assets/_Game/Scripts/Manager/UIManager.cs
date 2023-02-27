@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
 
     public event Action OnNextLevel;
 
+
     public void BtnStartGame() {
         panelStartGame.SetActive(false);
         GameManager.Instance.IsStartGame = true;
@@ -45,6 +46,9 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.SaveGameData();
         LevelManager.Instance.RemoveLastMap();
         LevelManager.Instance.LoadMapAtCurrentLevel();
+        GameManager.Instance.IsWinning = false;
+        GameManager.Instance.IsLose = false;
+
         OnNextLevel?.Invoke();
     }
 

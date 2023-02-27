@@ -15,9 +15,16 @@ public class Player : CharacterProps
     }
     private void HandleUpdateAnim()
     {
+
         if (GameManager.Instance.IsStartGame)
         {
-            if (isWin)
+            if(GameManager.Instance.IsLose)
+            {
+                ChangeAnim("Dead");
+                return;
+            }
+
+            if (IsCharacterFirstWin)
             {
                 ChangeAnim("Win");
                 return;
@@ -34,5 +41,17 @@ public class Player : CharacterProps
                 return;
             }
         }
+    }
+
+    public override void HandLeWin()
+    {
+        base.HandLeWin();
+        playerMovement.enabled= false;
+    }
+
+    protected override void ResetFLoor()
+    {
+        base.ResetFLoor();  
+        playerMovement.enabled= true;
     }
 }

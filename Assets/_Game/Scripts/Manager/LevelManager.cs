@@ -9,16 +9,10 @@ public class LevelManager : Singleton<LevelManager> // chi co duy nhat 1 script
     public LevelController CurrentLevel { get => currentLevel; set => currentLevel = value; }
 
 
-    public override void Awake()
+    private void Start()
     {
-        base.Awake();
         LoadMapAtCurrentLevel();
     }
-
-    //public void Start()
-    //{
-    //    LoadMapAtCurrentLevel();
-    //}
 
     public void RemoveLastMap()
     {

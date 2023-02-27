@@ -651,15 +651,14 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 3
   indexPrefab: 2
-  currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  isWin: 0
-  isHuman: 0
+  isCharacterFirstWin: 0
   anim: {fileID: 1871553984}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
   hasTarget: 0
+  currentTargetBridge: {fileID: 0}
 --- !u!195 &226721994
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2246,15 +2245,14 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 4
   indexPrefab: 3
-  currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  isWin: 0
-  isHuman: 0
+  isCharacterFirstWin: 0
   anim: {fileID: 835088470}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
   hasTarget: 0
+  currentTargetBridge: {fileID: 0}
 --- !u!195 &1085128256
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2593,15 +2591,14 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 2
   indexPrefab: 1
-  currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  isWin: 0
-  isHuman: 0
+  isCharacterFirstWin: 0
   anim: {fileID: 1445176139}
   stateBot: 0
   currentTargetPoint: {x: 0, y: 0, z: 0}
   needBlockToBuild: 5
   hasTarget: 0
+  currentTargetBridge: {fileID: 0}
 --- !u!136 &1404835863
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3404,9 +3401,7 @@ MonoBehaviour:
   listToCollectBlock: []
   color: 1
   indexPrefab: 0
-  currentTargetBridge: {fileID: 0}
   reachEndPoint: 0
-  isWin: 0
-  isHuman: 1
+  isCharacterFirstWin: 0
   anim: {fileID: 1616266402}
   playerMovement: {fileID: 2053699806}

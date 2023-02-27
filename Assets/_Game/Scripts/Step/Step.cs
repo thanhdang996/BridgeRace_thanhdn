@@ -31,9 +31,9 @@ public class Step : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out CharacterProps character))
+        if (other.TryGetComponent(out CharacterProps character))
         {
-            if(character is Player)
+            if (character is Player)
             {
                 Player player = (Player)character;
 
@@ -82,6 +82,11 @@ public class Step : MonoBehaviour
             else if (character is Bot)
             {
                 Bot bot = (Bot)character;
+
+                if (bot.NumberBlockOwner <= 0 && !IsSameColor(bot.Color))
+                {
+                    return;
+                }
                 if (IsSameColor(ColorType.None))
                 {
                     ChangeColor(bot.Color);

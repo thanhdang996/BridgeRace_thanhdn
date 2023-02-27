@@ -11,8 +11,24 @@ public class EndPoint : MonoBehaviour
     {
         if (other.TryGetComponent(out CharacterProps character))
         {
-            if (level - 1 != character.AtFloor) return;
+            if (isWinPos)
+            {
+                if (character is Player)
+                {
+                    GameManager.Instance.IsWinning = true;
+                    character.HandLeWin();
+                    UIManager.Instance.ShowPanelWin();
+                    return;
+                } 
+                if(character is Bot) {
+                    character.HandLeWin();
+                    GameManager.Instance.IsLose = true;
+                    UIManager.Instance.ShowPanelLose();
+                    return; 
+                }
+            }
 
+            if (level - 1 != character.AtFloor) return;
             character.HandleNextFloor();
         }
     }

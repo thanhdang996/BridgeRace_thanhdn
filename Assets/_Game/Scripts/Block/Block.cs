@@ -30,7 +30,7 @@ public class Block : MonoBehaviour
                 character.ListToCollectBlock.Remove(transform.position);
                 character.NumberBlockOwner++;
                 transform.SetParent(character.BackPoint);
-                transform.localRotation = character.BackPoint.rotation;
+                transform.localRotation = Quaternion.identity;
                 transform.localPosition = new Vector3(0, character.NumberBlockOwner * 0.3f, 0);
 
                 if(character is Bot)
