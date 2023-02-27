@@ -57,10 +57,9 @@ public class CharacterProps : MonoBehaviour
     protected virtual void OnInit()
     {
         listToCollectBlock.Clear();
-        // get blockSpawner o floor hien tai
         blockSpawner = LevelManager.Instance.CurrentLevel.GetCurrentBlockSpawnerInFloor(AtFloor - 1);
 
-        // gan list can collect tu blockSpawner
+        // gan list can collect tu blockSpawner tang moi
         listToCollectBlock = blockSpawner.DataBlockPrefab[indexPrefab].listBlockPos;
     }
 
