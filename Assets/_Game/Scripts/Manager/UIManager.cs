@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject panelStartGame;
     [SerializeField] private GameObject panelWinLevelGame;
     [SerializeField] private GameObject panelLoseLevelGame;
+    [SerializeField] private GameObject panelFinalWin;
 
     public event Action OnNextLevel;
 
@@ -34,6 +35,11 @@ public class UIManager : Singleton<UIManager>
     public void HidePaneLose()
     {
         panelLoseLevelGame.SetActive(false);
+    }
+
+    public void ShowPanelFinalWin()
+    {
+        panelFinalWin.SetActive(true);
     }
 
     public void BtnNextLevel()

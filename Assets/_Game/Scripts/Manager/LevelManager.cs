@@ -22,6 +22,11 @@ public class LevelManager : Singleton<LevelManager> // chi co duy nhat 1 script
     public void LoadMapAtCurrentLevel()
     {
         GameObject go = Resources.Load($"Levels/Level {GameManager.Instance.Level}") as GameObject;
+        if(go == null)
+        {
+            UIManager.Instance.ShowPanelFinalWin();
+            return;
+        }
         currentLevel = Instantiate(go).GetComponent<LevelController>();
     }
 }
